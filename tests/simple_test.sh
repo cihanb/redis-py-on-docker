@@ -31,7 +31,7 @@ oss_host_name="localhost"
 
 test_db(){
     echo "test_db()"
-    docker exec -it redis-python "python ../Redis-Python-Sample.py $oss_host_name $oss_db_port"
+    docker exec -it redis-python "python /usr/src/app/Redis-Python-Sample.py $oss_host_name $oss_db_port"
 }
 
 ### START HERE ###
