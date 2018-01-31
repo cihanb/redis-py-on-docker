@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/cihanb/redis-py-on-docker.svg?branch=master)](https://travis-ci.org/cihanb/redis-py-on-docker)
+
 ## ```redis-py``` 
 # Docker Image for Testing Python Based Apps with Redis & Redis Enterprise
 Sample docker image based on ```python 3``` with ```redis-py``` for testing simple python based Redis apps.
