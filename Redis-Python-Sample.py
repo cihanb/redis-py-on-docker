@@ -27,23 +27,23 @@
 import sys
 import redis
 
-try:
-    if (len(sys.argv) <= 1):
-        print("Need to provide a DB port to test connectiivity. Example: python Redis-Python-Sample.py 12000")
+# try:
+if (len(sys.argv) <= 1):
+    print("Need to provide a DB port to test connectiivity. Example: python Redis-Python-Sample.py 12000")
 
-    host_name = sys.argv[1]
-    db_port = sys.argv[2]
-    
-    print("Connecting to host={0} and port={1}".format(host_name,db_port))
-    r = redis.StrictRedis(host=host_name, port=db_port, db=0)
-    
-    print("Set key 'key1' to value '123' on host={0} and port={1}".format(host_name,db_port))
-    r.set('key1', '123')
+host_name = sys.argv[1]
+db_port = sys.argv[2]
 
-    print("Get key 'key1' and validate value is '123' on host={0} and port={1}".format(host_name,db_port))
-    if (r.get('key1') == b'123'):
-        print("DB TEST PASSED")
-    else:
-        print("DB TEST FAILED: Can't find the key")
-except:
-    print("DB TEST FAILED")
+print("Connecting to host={0} and port={1}".format(host_name,db_port))
+r = redis.StrictRedis(host=host_name, port=db_port, db=0)
+
+print("Set key 'key1' to value '123' on host={0} and port={1}".format(host_name,db_port))
+r.set('key1', '123')
+
+print("Get key 'key1' and validate value is '123' on host={0} and port={1}".format(host_name,db_port))
+if (r.get('key1') == b'123'):
+    print("DB TEST PASSED")
+else:
+    print("DB TEST FAILED: Can't find the key")
+# except:
+#     print("DB TEST FAILED")

@@ -32,6 +32,9 @@ oss_host_name="localhost"
 test_oss_db(){
     echo "test_oss_db()"
 
+    #cleanup images and containers
+    clean_up
+
     #launch the container
     echo "docker run -d --name redis-python redislabs/redis-py"
     docker run -d --name redis-python redislabs/redis-py
@@ -47,13 +50,16 @@ ent_host_name=172.17.0.3
 test_enterprise_db(){
     echo "test_enterprise_db()"
 
+    #cleanup images and containers
+    clean_up
+
     #launch the redis-py container
     echo "docker run -d --name redis-python redislabs/redis-py"
     docker run -d --name redis-python redislabs/redis-py
 
     #launch the enterprise container
     echo "docker run -d --cap-add sys_resource --name rp -p 9443:9443 -p 12000:12000 redislabs/redis"
-    docker run -d --cap-add sys_resource --name rp -p 9443:9443 -p 12000:12000 redislabs/redis
+    docker run -d --cap-add sys_resource --name rp -p 9443:9443 -p $ent_db_port:$ent_db_port redislabs/redis
 
     #provision cluster
     sleep 60
@@ -61,7 +67,7 @@ test_enterprise_db(){
 
     #provision db
     sleep  60
-    curl -k -u "cihan@redislabs.com:redislabs123" --request POST --url "https://localhost:9443/v1/bdbs" --header 'content-type: application/json' --data '{"name":"db1","type":"redis","memory_size":102400,"port":12000}'
+    curl -k -u "cihan@redislabs.com:redislabs123" --request POST --url "https://localhost:9443/v1/bdbs" --header 'content-type: application/json' --data '{"name":"db1","type":"redis","memory_size":102400,"port":'$ent_db_port'}'
 
     #get the container ip
     cmd="docker exec -it rp ifconfig | grep 172. | cut -d\":\" -f 2 | cut -d\" \" -f 1"
@@ -70,14 +76,16 @@ test_enterprise_db(){
     docker exec -it redis-python "python" /usr/src/app/Redis-Python-Sample.py $ent_host_name $ent_db_port
 }
 
+clean_up(){
+    #cleanup images and containers
+    docker rm -f rp
+    docker rm -f redis-python
+    docker rmi -f redislabs/redis:latest
+    docker rmi -f redislabs/redis-py:latest
+}
 
 
 ### START HERE ###
-docker rm -f rp
-docker rm -f redis-python
-docker rmi -f redislabs/redis:latest
-docker rmi -f redislabs/redis-py:latest
-
 #call test open source database
 test_oss_db
 #call test redis enterprise database
