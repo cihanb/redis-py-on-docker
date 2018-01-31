@@ -41,7 +41,6 @@ RUN apt-get install -y python-pip
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
-
 COPY Redis-Python-Sample.py ./
 CMD "redis-server"
 
