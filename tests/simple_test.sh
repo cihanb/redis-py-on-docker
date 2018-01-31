@@ -40,5 +40,5 @@ echo "docker run -d --name redis-python redislabs/redis-py"
 eval "docker run -d --name redis-python redislabs/redis-py"
 
 #call test_db
-test_db()
+test_db
 
