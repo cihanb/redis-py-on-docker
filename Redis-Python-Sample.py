@@ -28,6 +28,7 @@ import sys
 import redis
 
 # try:
+
 if (len(sys.argv) <= 1):
     print("Need to provide a DB port to test connectiivity. Example: python Redis-Python-Sample.py 12000")
 
@@ -45,5 +46,6 @@ if (r.get('key1') == b'123'):
     print("DB TEST PASSED")
 else:
     print("DB TEST FAILED: Can't find the key")
+
 # except:
 #     print("DB TEST FAILED")
