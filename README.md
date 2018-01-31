@@ -1,6 +1,7 @@
 # ```redis-py``` Docker Image for Redis & Redis Enterprise
-Image based on python version 3 with redis-py latest for simple python based Redis apps.
-Simply run the following to test a SET and GET operation against another container running Redis or Redis Enterprise:
+Sample Docker image based on Python 3 with redis-py for testing simple python based Redis apps.
+
+Simply run ```Redis-Python-Sample.py``` with hostname and port for a Redis database to test Redis's SET and GET operations:
 ```
 # python Redis-Python-Sample.py 172.17.0.3 12000
 
